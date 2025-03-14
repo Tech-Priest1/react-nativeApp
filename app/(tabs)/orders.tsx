@@ -32,8 +32,8 @@ const OrdersScreen = () => {
   };
 
   return (
-    <SafeAreaView  style={{ flex: 1, backgroundColor: 'white', paddingTop: '20%' }}>
-      <Text style={styles.orderHeader}>Pedidos Finalizados</Text>
+    <SafeAreaView  style={{ flex: 1, backgroundColor: 'white', paddingTop: '5%' }}>
+      <Text style={styles.orderTitleHeader}>Pedidos Finalizados</Text>
       {orders.length === 0 ? (
         <Text style={styles.noOrders}>Nenhum pedido realizado ainda.</Text>
       ) : (

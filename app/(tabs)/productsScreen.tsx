@@ -10,7 +10,7 @@ export default function ProductScreen({ navigation }: { navigation: any }) {
     { id: 3, name: 'Produto 3', description: 'Descrição do produto 3', price: 15, image: require('../../assets/images/product.svg') },
   ];
 
-  const cartIcon = require('../../assets/images/cart.svg'); // Adjust the path
+  const cartIcon = require('../../assets/images/cart.svg'); 
 
   const [cart, setCart] = useState<{ id: number; name: string; price: number; image: any}[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);

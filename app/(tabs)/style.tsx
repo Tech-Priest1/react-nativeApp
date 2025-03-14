@@ -236,7 +236,7 @@ export const styles = StyleSheet.create({
   
   floatingCartButton: {
     position: 'absolute',
-    top: 600,
+    top: 700,
     right: 20,
     backgroundColor: '#4162B7',
     width: 75,
@@ -346,6 +346,15 @@ orderItem: {
   borderRadius: 10,
   marginVertical: 5,
   marginHorizontal: 10,
+},
+orderTitleHeader:{
+  fontSize: 24,
+  fontWeight: 'bold',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  paddingLeft: 90,
+
 },
 orderHeader: {
   fontSize: 24,
