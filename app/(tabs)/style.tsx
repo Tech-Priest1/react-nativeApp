@@ -236,7 +236,7 @@ export const styles = StyleSheet.create({
   
   floatingCartButton: {
     position: 'absolute',
-    top: 700,
+    top: '75%',
     right: 20,
     backgroundColor: '#4162B7',
     width: 75,
