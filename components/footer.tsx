@@ -1,36 +1,39 @@
-import { router } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
-const Footer = ({  }: { navigation: any }) => {
+const Footer = () => {
+  const router = useRouter(); // Use the router inside the component
+
   return (
     <View style={styles.footerContainer}>
       <TouchableOpacity
         style={styles.footerButton}
-        onPress={() => router.replace('/productsScreen')}
+        onPress={() => router.push('/productsScreen')}
       >
-        <Image source={require('../../assets/images/home.svg')} style={styles.icon} />
-        <Text style={styles.buttonText}>Inicio  </Text>
+        <Image source={require('../assets/images/home.svg')} style={styles.icon} />
+        <Text style={styles.buttonText}>Inicio</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.footerButton}
-        onPress={() => router.replace('/orders')}
+        onPress={() => router.push('/orders')}
       >
-        <Image source={require('../../assets/images/box.svg')} style={styles.icon} />
+        <Image source={require('../assets/images/box.svg')} style={styles.icon} />
         <Text style={styles.buttonText}>Pedidos</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.footerButton}
-        onPress={() => router.replace('/userProfile')}
+        onPress={() => router.push('/userProfile')}
       >
-        <Image source={require('../../assets/images/profile.svg')} style={styles.icon} />
+        <Image source={require('../assets/images/profile.svg')} style={styles.icon} />
         <Text style={styles.buttonText}>Profile</Text>
       </TouchableOpacity>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   footerContainer: {

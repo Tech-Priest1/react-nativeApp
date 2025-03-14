@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { styles } from './style';
-import Footer from './footer';
+import Footer from '../../components/footer';
 import { router } from 'expo-router';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons'; // Import icons

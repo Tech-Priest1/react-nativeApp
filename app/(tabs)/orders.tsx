@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView , Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Footer from './footer';
+import Footer from '../../components/footer';
 import { styles } from './style';
 
 const OrdersScreen = () => {

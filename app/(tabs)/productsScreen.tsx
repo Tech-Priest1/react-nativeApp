@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {  ScrollView, Text, View, Image, TouchableOpacity, Modal, FlatList, TextInput } from 'react-native';
 import { styles } from './style';
-import Footer from './footer'; 
+import Footer from '../../components/footer'; 
 
 export default function ProductScreen({ navigation }: { navigation: any }) {
   const products = [
