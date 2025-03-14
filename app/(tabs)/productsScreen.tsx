@@ -1,8 +1,8 @@
-// ProductScreen.tsx
 import React, { useState } from 'react';
-import { ScrollView, Text, View, Image, TouchableOpacity, Modal, FlatList } from 'react-native';
+import { ScrollView, Text, View, Image, TouchableOpacity, Modal, FlatList, TextInput } from 'react-native';
 import { styles } from './style';
 import Footer from './footer'; 
+
 export default function ProductScreen({ navigation }: { navigation: any }) {
   const products = [
     { id: 1, name: 'Produto 1', description: 'Descrição do produto 1', price: 20, image: require('../../assets/images/product.svg') },
@@ -12,10 +12,11 @@ export default function ProductScreen({ navigation }: { navigation: any }) {
 
   const cartIcon = require('../../assets/images/cart.svg'); // Adjust the path
 
-  const [cart, setCart] = useState<{ id: number; name: string; price: number }[]>([]);
+  const [cart, setCart] = useState<{ id: number; name: string; price: number; image: any}[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const handleAddToCartButton = (product: { id: number; name: string; price: number }) => {
+  const handleAddToCartButton = (product: { id: number; name: string; price: number ; image: any;}) => {
     setCart(prevCart => [...prevCart, product]);
   };
 
@@ -28,13 +29,23 @@ export default function ProductScreen({ navigation }: { navigation: any }) {
     setCart([]); // Clear the cart after checkout
     setIsModalVisible(false); // Close the modal
   };
-  
+
+  const filteredProducts = products.filter(product => 
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <View style={{ flex: 1 , backgroundColor: 'white'}}>
+      <TextInput 
+        style={styles.searchBar}
+        placeholder="Buscar produto..."
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+      />
+
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <View style={styles.pContainer}>
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <View key={product.id} style={styles.productContainer}>
               <Image source={product.image} style={styles.productImage} />
               <Text style={styles.h1}>{product.name}</Text>
@@ -70,6 +81,7 @@ export default function ProductScreen({ navigation }: { navigation: any }) {
                 data={cart}
                 renderItem={({ item }) => (
                   <View style={styles.cartItem}>
+                     <Image source={item.image} style={styles.cartItemImage}/>
                     <Text>{item.name}</Text>
                     <Text>R${item.price}</Text>
                     <TouchableOpacity

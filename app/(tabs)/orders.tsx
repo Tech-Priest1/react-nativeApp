@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import { SafeAreaView , Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Footer from './footer';
 import { styles } from './style';
@@ -13,16 +13,16 @@ const OrdersScreen = () => {
       id: 1,
       name: 'Pedido 1',
       products: [
-        { id: 101, name: 'Produto A', price: 20 },
-        { id: 102, name: 'Produto B', price: 15 },
+        { id: 101, name: 'Produto A', price: 20, image: require('../../assets/images/product.svg') },
+        { id: 102, name: 'Produto B', price: 15, image: require('../../assets/images/product.svg') },
       ],
     },
     {
       id: 2,
       name: 'Pedido 2',
       products: [
-        { id: 201, name: 'Produto C', price: 30 },
-        { id: 202, name: 'Produto D', price: 25 },
+        { id: 201, name: 'Produto C', price: 30, image: require('../../assets/images/product.svg') },
+        { id: 202, name: 'Produto D', price: 25, image: require('../../assets/images/product.svg' ) },
       ],
     },
   ];
@@ -32,32 +32,43 @@ const OrdersScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
-      <Text style={styles.header}>Pedidos Finalizados</Text>
+    <SafeAreaView  style={{ flex: 1, backgroundColor: 'white', paddingTop: '20%' }}>
+      <Text style={styles.orderHeader}>Pedidos Finalizados</Text>
       {orders.length === 0 ? (
         <Text style={styles.noOrders}>Nenhum pedido realizado ainda.</Text>
       ) : (
         <FlatList
           data={orders}
-          renderItem={({ item }) => (
-            <View style={styles.orderItem}>
-              <TouchableOpacity onPress={() => toggleExpand(item.id)}>
-                <Text>{item.name}</Text>
-              </TouchableOpacity>
-              {expandedOrder === item.id && (
-                <View style={styles.productList}>
-                  {item.products.map((product) => (
-                    <Text key={product.id}>{product.name} - R${product.price}</Text>
-                  ))}
-                </View>
-              )}
-            </View>
-          )}
+          renderItem={({ item }) => {
+            const totalValue = item.products.reduce((sum, product) => sum + product.price, 0);
+            return (
+              <View style={styles.orderItem}>
+                <TouchableOpacity onPress={() => toggleExpand(item.id)} style={styles.orderHeader}>
+                  <Text style={styles.orderTitle}>{item.name}</Text>
+                  <Text style={styles.orderArrow}>{expandedOrder === item.id ? '▲' : '▼'}</Text>
+                </TouchableOpacity>
+                <Text style={styles.totalPrice}>Total: R${totalValue}</Text>
+
+                {expandedOrder === item.id && (
+                  <View style={styles.productList}>
+                    {item.products.map((product) => (
+                      <View key={product.id} style={styles.productItem}>
+                        <Image source={product.image} style={styles.productImage} />
+                        <Text style={styles.productText}>
+                          {product.name} - R${product.price}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+                )}
+              </View>
+            );
+          }}
           keyExtractor={(item) => item.id.toString()}
         />
       )}
       <Footer navigation={navigation} />
-    </View>
+    </SafeAreaView >
   );
 };
 

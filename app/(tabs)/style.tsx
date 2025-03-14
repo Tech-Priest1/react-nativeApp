@@ -224,6 +224,16 @@ export const styles = StyleSheet.create({
   },
 
   //pruducts screen
+  searchBar: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    margin: 10,
+    backgroundColor: '#fff',
+  },
+  
   floatingCartButton: {
     position: 'absolute',
     top: 600,
@@ -314,56 +324,121 @@ header: {
   fontSize: 24,
   fontWeight: 'bold',
 },
+cartItemImage: {
+  width: 50,
+  height: 50,
+  resizeMode: 'contain',
+  marginRight: 10,
+},
+
+//orders screen
 noOrders: {
   fontSize: 16,
   color: 'gray',
+  textAlign: 'center',
+  marginVertical: 20,
 },
 orderItem: {
-  padding: 10,
+  padding: 15,
   borderBottomWidth: 1,
-  borderBottomColor: 'gray',
+  borderBottomColor: '#ddd',
+  backgroundColor: '#f8f8f8',
+  borderRadius: 10,
+  marginVertical: 5,
+  marginHorizontal: 10,
+},
+orderHeader: {
+  fontSize: 24,
+  fontWeight: 'bold',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+},
+orderTitle: {
+  fontSize: 18,
+  fontWeight: 'bold',
+},
+orderArrow: {
+  fontSize: 18,
+  color: '#333',
+},
+totalPrice: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  color: '#007bff',
+  marginTop: 5,
 },
 productList: {
   marginTop: 10,
   paddingLeft: 10,
-  borderLeftWidth: 2,
-  borderLeftColor: '#ddd',
+  borderLeftWidth: 3,
+  borderLeftColor: '#007bff',
 },
+productItem: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  paddingVertical: 5,
+},
+ordersImage: {
+  width: 40,
+  height: 40,
+  marginRight: 10,
+  borderRadius: 5,
+},
+productText: {
+  fontSize: 16,
+  color: '#333',
+},
+
 //userprofile
-  avatar: {
-    width: 100,
-    height: 100,
-    marginBottom: 20,
-  },
-  infoContainer: {
-    width: '100%',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    marginBottom: 10,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  info: {
-    fontSize: 16,
-    color: '#555',
-  },
-  logoutButton: {
-    marginTop: 30,
-    padding: 15,
-    backgroundColor: 'red',
-    borderRadius: 5,
-    width: '100%',
-    alignItems: 'center',
-  },
-  logoutText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
+avatar: {
+  width: 100,
+  height: 100,
+  marginBottom: 20,
+  alignSelf: 'center',
+},
+
+infoContainer: {
+  width: '100%',
+  paddingVertical: 12,
+  borderBottomWidth: 1,
+  borderBottomColor: '#ccc',
+},
+
+label: {
+  fontSize: 16,
+  fontWeight: 'bold',
+  color: '#333',
+},
+
+row: {
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginTop: 5,
+},
+
+info: {
+  fontSize: 16,
+  color: '#555',
+  flex: 1,
+},
+
+logoutButton: {
+  marginTop: 30,
+  padding: 15,
+  backgroundColor: 'red',
+  borderRadius: 5,
+  width: '100%',
+  alignItems: 'center',
+},
+
+logoutText: {
+  color: 'white',
+  fontSize: 16,
+  fontWeight: 'bold',
+},
+
 });
 
 

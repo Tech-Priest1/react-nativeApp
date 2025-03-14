@@ -1,4 +1,4 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -17,7 +17,7 @@ const customDarkTheme = {
     background: '#fff', 
     card: '#fff', 
   },
-  // You can further customize other aspects of DarkTheme here
+  
 };
 
 
@@ -40,12 +40,15 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : customDarkTheme }>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: true }} />
-        <Stack.Screen name="(tabs)/+not-found" />
-        <Stack.Screen name="(tabs)/index" /> {/* This should match your index screen */}
-        <Stack.Screen name="(tabs)/cadastro" />
-        <Stack.Screen name="(tabs)/cartScreen" />
-        <Stack.Screen name="=/productsScreen" />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false}} />
+        <Stack.Screen name="(tabs)/+not-found" options={{ headerShown: false}} />
+        <Stack.Screen name="(tabs)/index" options={{ headerShown: false}} /> 
+        <Stack.Screen name="(tabs)/cadastro" options={{ headerShown: false}}/>
+        <Stack.Screen name="(tabs)/cartScreen" options={{ headerShown: false}}/>
+        <Stack.Screen name="(tabs)/productsScreen" options={{ headerShown: false}}/>
+        <Stack.Screen name="(tabs)/orders" options={{ headerShown: false}}/>
+        <Stack.Screen name="(tabs)/footer" options={{ headerShown: false}}/>
+        <Stack.Screen name="(tabs)/userProfile" options={{ headerShown: false}}/>
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
