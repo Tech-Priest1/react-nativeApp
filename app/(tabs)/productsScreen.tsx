@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, View, Image, TouchableOpacity, Modal, FlatList, TextInput } from 'react-native';
+import {  ScrollView, Text, View, Image, TouchableOpacity, Modal, FlatList, TextInput } from 'react-native';
 import { styles } from './style';
 import Footer from './footer'; 
 
@@ -35,7 +35,7 @@ export default function ProductScreen({ navigation }: { navigation: any }) {
   );
 
   return (
-    <View style={{ flex: 1 , backgroundColor: 'white'}}>
+    <View style={{ flex: 1 , backgroundColor: 'white',paddingTop: '5%'}}>
       <TextInput 
         style={styles.searchBar}
         placeholder="Buscar produto..."
@@ -43,7 +43,7 @@ export default function ProductScreen({ navigation }: { navigation: any }) {
         onChangeText={setSearchQuery}
       />
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 100  }}>
         <View style={styles.pContainer}>
           {filteredProducts.map((product) => (
             <View key={product.id} style={styles.productContainer}>

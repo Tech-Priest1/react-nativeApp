@@ -18,7 +18,7 @@ const UserProfileScreen = () => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { flex: 1, backgroundColor: 'white', paddingHorizontal: 20 }]}>
+    <SafeAreaView style={[styles.container, { flex: 1, backgroundColor: 'white', paddingHorizontal: 20 ,paddingTop: '10%'}]}>
       {/* Default SVG Avatar */}
       <Image source={require('../../assets/images/user.svg')} style={styles.avatar} />
 
