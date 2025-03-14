@@ -14,10 +14,10 @@ export default function App() {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
-  // Email Validation Regex
+  //  Regex para validar email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Password Validation Regex
+  //  Regex para validar senha 
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
 
   const validateFields = () => {
@@ -34,7 +34,7 @@ export default function App() {
       setEmailError('');
     }
 
-    // Password Validation
+    
     if (!passwordField.trim()) {
       setPasswordError('O campo de senha não pode estar vazio.');
       valid = false;
@@ -45,7 +45,7 @@ export default function App() {
       setPasswordError('');
     }
 
-    // Confirm Password Validation
+   
     if (!confirmPasswordField.trim()) {
       setConfirmPasswordError('Confirme sua senha.');
       valid = false;
@@ -61,7 +61,6 @@ export default function App() {
 
   const handleSignUpButton = () => {
     if (validateFields()) {
-      // Navigate to the next page if validation is successful
       router.replace('/');
     }
   };
@@ -76,7 +75,7 @@ export default function App() {
         <Text style={styles.h1}>Criar conta</Text>
         <Text style={styles.h2}>Preencha os dados abaixo para criar uma conta.</Text>
 
-        {/* Email Input */}
+        {/* campo de Email */}
         <View style={styles.inputArea}>
           <Text style={styles.inputLabel}>Email:</Text>
           <TextInput
@@ -91,7 +90,7 @@ export default function App() {
           {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
         </View>
 
-        {/* Password Input */}
+        {/* campo de senha */}
         <View style={styles.inputArea}>
           <Text style={styles.inputLabel}>Senha:</Text>
           <TextInput
@@ -105,7 +104,7 @@ export default function App() {
           {passwordError ? <Text style={styles.errorText}>{passwordError}</Text> : null}
         </View>
 
-        {/* Confirm Password Input */}
+        {/* comfirmar senha */}
         <View style={styles.inputAreaSignUp}>
           <Text style={styles.inputLabel}>Confirme sua senha:</Text>
           <TextInput
