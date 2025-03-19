@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import { SafeAreaView , Text, View, TouchableOpacity, Image } from 'react-native';
 import { styles } from './style';
 import Footer from '../../components/footer';
 import { router } from 'expo-router';
@@ -20,7 +20,7 @@ const UserProfileScreen = () => {
   return (
     <SafeAreaView style={[styles.container, { flex: 1, backgroundColor: 'white', paddingHorizontal: 20 ,paddingTop: '10%'}]}>
       {/* Default SVG Avatar */}
-      <Image source={require('../../assets/images/user.svg')} style={styles.avatar} />
+      <Image source={require('../../assets/images/user.png')} style={styles.avatar} />
 
       {/* User Info with Edit Buttons */}
       <View style={styles.infoContainer}>
@@ -58,7 +58,7 @@ const UserProfileScreen = () => {
         <Text style={styles.logoutText}>Sair</Text>
       </TouchableOpacity>
 
-      <Footer navigation={navigation} />
+      <Footer/>
     </SafeAreaView>
   );
 };

@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
-import {  ScrollView, Text, View, Image, TouchableOpacity, Modal, FlatList, TextInput } from 'react-native';
+import { ScrollView, Text, View, Image, TouchableOpacity, Modal, FlatList, TextInput } from 'react-native';
 import { styles } from './style';
-import Footer from '../../components/footer'; 
+import Footer from '../../components/footer';
 
-export default function ProductScreen({ navigation }: { navigation: any }) {
+export default function ProductScreen({  }: { navigation: any }) {
   const products = [
-    { id: 1, name: 'Produto 1', description: 'Descrição do produto 1', price: 20, image: require('../../assets/images/product.svg') },
-    { id: 2, name: 'Produto 2', description: 'Descrição do produto 2', price: 30, image: require('../../assets/images/product.svg') },
-    { id: 3, name: 'Produto 3', description: 'Descrição do produto 3', price: 15, image: require('../../assets/images/product.svg') },
+    { id: 1, name: 'Asus ROG Phone 9 Pro', 
+      description: 'O smartphone Asus ROG Phone 9 Pro é a versão mais poderosa da nova geração do smartphone gamer da empresa taiwanesa. O aparelho traz recursos diferenciados para quem usa o celular prioritariamente para jogos, incluindo acessórios de refrigeração.', 
+      price: 6920, image: require('../../assets/images/rogphone9pro.jpg') },
+    { id: 2, name: 'Samsung Galaxy S24 Ultra', 
+      description: 'O smartphone Galaxy S24 Ultra é celular mais poderoso da empresa koreana. O aparelho vem com o hardware mais avançado entre os celulares da Samsung e recheado de muita tecnologia otimizada por Inteligência Artificial.', 
+      price: 5310, image: require('../../assets/images/galaxyS24Ultra.png') },
+    { id: 3, name: 'REDMAGIC 10 Pro', 
+      description: 'O smartphone gamer RedMagic 10 Pro da empresa chinesa Nubia possui a maior batteria do mercado e uma ventoinha imbutida, como os gatilhos ultrassônicos nas laterais e o slide para ativar o "modo jogo" esse é o melhor celular para jogos da atualidade', 
+      price: 4900, image: require('../../assets/images/redMagic10pro.png') },
+    { id: 4, name: 'Huawei Mate XT Ultimate', 
+      description: 'O Huawei Mate XT Ultimate é um dos primeiros celulares dobráveis "triplos" do mundo,o celular da empresa chinesa Surpreendente com sua tela Touchscreen de 10.2 polegadas, que coloca esse Huawei no topo de sua categoria. Além disso a resolução é das mais altas atualmente em circulação: 3184x2232 ', 
+      price: 21000, image: require('../../assets/images/huaweixt.png') },
   ];
 
-  const cartIcon = require('../../assets/images/cart.svg'); 
+  const cartIcon = require('../../assets/images/cart.png');
+  const logo = require('../../assets/images/mobiexpressLogo.png'); // Add the logo image
 
   const [cart, setCart] = useState<{ id: number; name: string; price: number; image: any}[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -35,7 +45,12 @@ export default function ProductScreen({ navigation }: { navigation: any }) {
   );
 
   return (
-    <View style={{ flex: 1 , backgroundColor: 'white',paddingTop: '5%'}}>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      {/* Add the logo and blue background */}
+      <View style={{ backgroundColor: '#034d8f', paddingHorizontal: 20, paddingVertical: 10, alignItems: 'center' }}>
+  <Image source={logo} style={{ width: 100, height: 50, resizeMode: 'contain' }} />
+</View>
+
       <TextInput 
         style={styles.searchBar}
         placeholder="Buscar produto..."
@@ -43,7 +58,7 @@ export default function ProductScreen({ navigation }: { navigation: any }) {
         onChangeText={setSearchQuery}
       />
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 100  }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <View style={styles.pContainer}>
           {filteredProducts.map((product) => (
             <View key={product.id} style={styles.productContainer}>
@@ -82,7 +97,7 @@ export default function ProductScreen({ navigation }: { navigation: any }) {
                 renderItem={({ item }) => (
                   <View style={styles.cartItem}>
                      <Image source={item.image} style={styles.cartItemImage}/>
-                    <Text>{item.name}</Text>
+                    <Text>{item.name} </Text>
                     <Text>R${item.price}</Text>
                     <TouchableOpacity
                       style={styles.removeButton}
@@ -108,7 +123,7 @@ export default function ProductScreen({ navigation }: { navigation: any }) {
         </View>
       </Modal>
 
-      <Footer navigation={navigation} />
+      <Footer/>
     </View>
   );
 }

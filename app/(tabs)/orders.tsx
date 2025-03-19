@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { SafeAreaView , Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import Footer from '../../components/footer';
 import { styles } from './style';
 
 const OrdersScreen = () => {
-  const navigation = useNavigation();
   const [expandedOrder, setExpandedOrder] = useState<number | null>(null);
 
   const orders = [
@@ -13,16 +11,16 @@ const OrdersScreen = () => {
       id: 1,
       name: 'Pedido 1',
       products: [
-        { id: 101, name: 'Produto A', price: 20, image: require('../../assets/images/product.svg') },
-        { id: 102, name: 'Produto B', price: 15, image: require('../../assets/images/product.svg') },
+          { id: 4, name: 'Huawei Mate XT Ultimate', price: 21000, image: require('../../assets/images/huaweixt.png') },
       ],
     },
     {
       id: 2,
       name: 'Pedido 2',
       products: [
-        { id: 201, name: 'Produto C', price: 30, image: require('../../assets/images/product.svg') },
-        { id: 202, name: 'Produto D', price: 25, image: require('../../assets/images/product.svg' ) },
+        { id: 1, name: 'Asus ROG Phone 9 Pro', price: 6920, image: require('../../assets/images/rogphone9pro.jpg') },
+        { id: 2, name: 'Samsung Galaxy S24 Ultra', price: 5310, image: require('../../assets/images/galaxyS24Ultra.png') },
+        { id: 3, name: 'REDMAGIC 10 Pro', price: 4900, image: require('../../assets/images/redMagic10pro.png') },
       ],
     },
   ];
@@ -67,7 +65,7 @@ const OrdersScreen = () => {
           keyExtractor={(item) => item.id.toString()}
         />
       )}
-      <Footer navigation={navigation} />
+      <Footer/>
     </SafeAreaView >
   );
 };

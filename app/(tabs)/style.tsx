@@ -450,4 +450,4 @@ logoutText: {
 
 });
 
-
+export default styles;

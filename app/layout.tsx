@@ -51,6 +51,7 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)/orders" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)/footer" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)/userProfile" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)/_layout.tsx" options={{ headerShown: false }} />
       </Stack>
 
       {/* Show Footer only if not on index or cadastro */}

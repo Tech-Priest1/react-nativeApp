@@ -11,7 +11,7 @@ const Footer = () => {
         style={styles.footerButton}
         onPress={() => router.push('/productsScreen')}
       >
-        <Image source={require('../assets/images/home.svg')} style={styles.icon} />
+        <Image source={require('../assets/images/home.png')} style={styles.icon} />
         <Text style={styles.buttonText}>Inicio</Text>
       </TouchableOpacity>
 
@@ -19,7 +19,7 @@ const Footer = () => {
         style={styles.footerButton}
         onPress={() => router.push('/orders')}
       >
-        <Image source={require('../assets/images/box.svg')} style={styles.icon} />
+        <Image source={require('../assets/images/box.png')} style={styles.icon} />
         <Text style={styles.buttonText}>Pedidos</Text>
       </TouchableOpacity>
 
@@ -27,7 +27,7 @@ const Footer = () => {
         style={styles.footerButton}
         onPress={() => router.push('/userProfile')}
       >
-        <Image source={require('../assets/images/profile.svg')} style={styles.icon} />
+        <Image source={require('../assets/images/profile.png')} style={styles.icon} />
         <Text style={styles.buttonText}>Profile</Text>
       </TouchableOpacity>
     </View>
