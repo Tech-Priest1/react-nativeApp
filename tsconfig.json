@@ -13,9 +13,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": [ "./*"]
     }
   },
   "extends": "expo/tsconfig.base",

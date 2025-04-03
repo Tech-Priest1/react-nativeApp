@@ -1,6 +1,11 @@
 // src/services/api.ts
+import { getToken } from '@/app/utils/secureStore';
+
+
 const BASE_URL = 'http://localhost:5000/api'; 
+
 export const api = async (endpoint: string, method: string = 'GET', data: any = null, token: string | null = null) => {
+
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
@@ -18,13 +23,15 @@ export const api = async (endpoint: string, method: string = 'GET', data: any = 
     const response = await fetch(`${BASE_URL}${endpoint}`, config);
     const responseData = await response.json();
     if (!response.ok) {
-      throw new Error(responseData.message || 'Something went wrong');
+      throw new Error(responseData.message || 'algo de errado aconteceu');
     }
+    console.log('API Response:', responseData);
     return responseData;
   } catch (error) {
     throw error;
   }
 };
+
 // Auth services
 export const authService = {
   register: (userData: { nome: string; email: string; senha: string }) => 
@@ -32,12 +39,14 @@ export const authService = {
   login: (credentials: { email: string; senha: string }) => 
     api('/users/login', 'POST', credentials),
 };
+
 // Product services
 export const productService = {
   getProducts: () => api('/products'),
   createProduct: (productData: any, token: string) => 
     api('/products', 'POST', productData, token),
 };
+
 // Cart services
 export const cartService = {
   getCart: (userId: string, token: string) => 
@@ -47,10 +56,29 @@ export const cartService = {
   removeFromCart: (userId: string, productId: string, token: string) => 
     api(`/cart/${userId}/${productId}`, 'DELETE', null, token),
 };
+
 // Order services
 export const orderService = {
   createOrder: (orderData: { usuario: string }, token: string) => 
     api('/orders', 'POST', orderData, token),
   getOrders: (token: string) => 
     api('/orders', 'GET', null, token),
+};
+
+// user services
+export const userService = {
+  getCurrentUser: async () => {
+    const token = await getToken();
+    if (!token) throw new Error('No token found');
+
+    const response = await api('/users/me', 'GET', null, token); // Pass token here
+    return response.user;
+  },
+  updateUser: async (userData: Record<string, any>) => {
+    const token = await getToken();
+    if (!token) throw new Error('No token found');
+
+    const response = await api('/users/me', 'PUT', userData, token); // Pass token here
+    return response.user;
+  },
 };

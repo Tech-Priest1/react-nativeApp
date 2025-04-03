@@ -1,7 +1,10 @@
 import { StyleSheet } from 'react-native';
 
+
 export const styles = StyleSheet.create({
+  //index screen
   scrollView: {
+    flex: 1,
     backgroundColor: '#FFF',
     paddingHorizontal: 15,
     paddingTop: 40,
@@ -12,6 +15,7 @@ export const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 150,
+     resizeMode: 'contain'
   },
   h1: {
     color: '#000',
@@ -68,7 +72,6 @@ export const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 16,
   },
-
   modalContainerIndex: {
     flex: 1,
     justifyContent: 'center',
@@ -119,7 +122,6 @@ export const styles = StyleSheet.create({
     color: 'red',
     fontWeight: 'bold',
   },
-  
   //singup screen
   signUpArea: {
     flexDirection: 'row',
@@ -213,7 +215,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 10,
   },
- 
   inputError: {
     borderColor: 'red', 
   },
@@ -222,7 +223,6 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 5,
   },
-
   //pruducts screen
   searchBar: {
     height: 40,
@@ -233,7 +233,6 @@ export const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: '#fff',
   },
-  
   floatingCartButton: {
     position: 'absolute',
     top: '75%',
@@ -252,14 +251,12 @@ export const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  
   cartIcon: {
     width: 25,
     height: 25,
     resizeMode: 'contain',
     marginRight: 5, 
   },
-  
   cartText: {
     color: '#FFF',
     fontSize: 16,
@@ -271,7 +268,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  
   modalContent: {
     width: '80%',
     backgroundColor: '#fff',
@@ -279,8 +275,6 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
   },
-  
-  
   cartItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -289,7 +283,6 @@ export const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
     width: '100%',
   },
-  
   removeButton: {
     backgroundColor: '#FF6B6B',
     padding: 5,
@@ -297,15 +290,12 @@ export const styles = StyleSheet.create({
     bottom: 5,
     borderRadius: 5,
   },
-  
-  
   finalizeButton: {
-    backgroundColor: '#28A745',
+    backgroundColor: '#4162B7',
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
   },
-  
   closeButton: {
     backgroundColor: '#DC3545',
     padding: 10,
@@ -330,7 +320,6 @@ cartItemImage: {
   resizeMode: 'contain',
   marginRight: 10,
 },
-
 //orders screen
 noOrders: {
   fontSize: 16,
@@ -354,7 +343,6 @@ orderTitleHeader:{
   justifyContent: 'space-between',
   alignItems: 'center',
   paddingLeft: 90,
-
 },
 orderHeader: {
   fontSize: 24,
@@ -398,7 +386,6 @@ productText: {
   fontSize: 16,
   color: '#333',
 },
-
 //userprofile
 avatar: {
   width: 100,
@@ -406,33 +393,28 @@ avatar: {
   marginBottom: 20,
   alignSelf: 'center',
 },
-
 infoContainer: {
   width: '100%',
   paddingVertical: 12,
   borderBottomWidth: 1,
   borderBottomColor: '#ccc',
 },
-
 label: {
   fontSize: 16,
   fontWeight: 'bold',
   color: '#333',
 },
-
 row: {
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
   marginTop: 5,
 },
-
 info: {
   fontSize: 16,
   color: '#555',
   flex: 1,
 },
-
 logoutButton: {
   marginTop: 30,
   padding: 15,
@@ -441,13 +423,10 @@ logoutButton: {
   width: '100%',
   alignItems: 'center',
 },
-
 logoutText: {
   color: 'white',
   fontSize: 16,
   fontWeight: 'bold',
 },
-
 });
-
 export default styles;
