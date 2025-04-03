@@ -127,11 +127,11 @@ const handleSendRecoveryEmail = async () => {
               autoCapitalize="none"
               keyboardType="email-address"
             />
-            <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.modalCloseButton}>
-              <Text style={styles.modalCloseButtonText}>Fechar</Text>
-            </TouchableOpacity>
             <TouchableOpacity onPress={handleSendRecoveryEmail} style={styles.modalButton}>
               <Text style={styles.modalButtonText}>Enviar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.modalCloseButton}>
+              <Text style={styles.modalCloseButtonText}>Fechar</Text>
             </TouchableOpacity>
           </View>
         </View>
