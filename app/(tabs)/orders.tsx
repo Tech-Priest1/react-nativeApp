@@ -1,36 +1,53 @@
-import React, { useState } from 'react';
-import { SafeAreaView , Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
+import axios from 'axios';
 import Footer from '../../components/footer';
 import { styles } from './style';
+import { getToken } from '@/app/utils/secureStore';
+import { jwtDecode } from 'jwt-decode';
+
+const BASE_URL = 'http://localhost:5000/api';
 
 const OrdersScreen = () => {
-  const [expandedOrder, setExpandedOrder] = useState<number | null>(null);
+  const [orders, setOrders] = useState<any[]>([]);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
 
-  const orders = [
-    {
-      id: 1,
-      name: 'Pedido 1',
-      products: [
-          { id: 4, name: 'Huawei Mate XT Ultimate', price: 21000, image: require('../../assets/images/huaweixt.png') },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Pedido 2',
-      products: [
-        { id: 1, name: 'Asus ROG Phone 9 Pro', price: 6920, image: require('../../assets/images/rogphone9pro.jpg') },
-        { id: 2, name: 'Samsung Galaxy S24 Ultra', price: 5310, image: require('../../assets/images/galaxyS24Ultra.png') },
-        { id: 3, name: 'REDMAGIC 10 Pro', price: 4900, image: require('../../assets/images/redMagic10pro.png') },
-      ],
-    },
-  ];
+  useEffect(() => {
+    fetchUserId();
+  }, []);
 
-  const toggleExpand = (orderId: number) => {
+  useEffect(() => {
+    if (userId) fetchOrders();
+  }, [userId]);
+
+  const fetchUserId = async () => {
+    try {
+      const token = await getToken();
+      if (token) {
+        const decoded: any = jwtDecode(token);
+        setUserId(decoded.id);
+      }
+    } catch (err) {
+      console.error("Erro ao obter ID do usuário:", err);
+    }
+  };
+
+  const fetchOrders = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/orders/${userId}`);
+      setOrders(res.data);
+    } catch (err) {
+      console.error("Erro ao buscar pedidos:", err);
+    }
+  };
+
+  const toggleExpand = (orderId: string) => {
     setExpandedOrder(expandedOrder === orderId ? null : orderId);
   };
 
   return (
-    <SafeAreaView  style={{ flex: 1, backgroundColor: 'white', paddingTop: '5%' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white', paddingTop: '5%' }}>
       <Text style={styles.orderTitleHeader}>Pedidos Finalizados</Text>
       {orders.length === 0 ? (
         <Text style={styles.noOrders}>Nenhum pedido realizado ainda.</Text>
@@ -38,22 +55,32 @@ const OrdersScreen = () => {
         <FlatList
           data={orders}
           renderItem={({ item }) => {
-            const totalValue = item.products.reduce((sum, product) => sum + product.price, 0);
+            if (!item?.produtos || !Array.isArray(item.produtos)) return null;
+
+            const totalValue = item.produtos.reduce(
+              (sum: number, p: any) => sum + (p.produto.preco || 0) * p.quantidade,
+              0
+            );
+
             return (
               <View style={styles.orderItem}>
-                <TouchableOpacity onPress={() => toggleExpand(item.id)} style={styles.orderHeader}>
-                  <Text style={styles.orderTitle}>{item.name}</Text>
-                  <Text style={styles.orderArrow}>{expandedOrder === item.id ? '▲' : '▼'}</Text>
+                <TouchableOpacity onPress={() => toggleExpand(item._id)} style={styles.orderHeader}>
+                  <Text style={styles.orderTitle}>Pedido #{item._id.slice(-5)}</Text>
+                  <Text style={styles.orderArrow}>{expandedOrder === item._id ? '▲' : '▼'}</Text>
                 </TouchableOpacity>
-                <Text style={styles.totalPrice}>Total: R${totalValue}</Text>
+                <Text style={styles.totalPrice}>
+                  Total: {totalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                </Text>
 
-                {expandedOrder === item.id && (
+                {expandedOrder === item._id && (
                   <View style={styles.productList}>
-                    {item.products.map((product) => (
-                      <View key={product.id} style={styles.productItem}>
-                        <Image source={product.image} style={styles.productImage} />
+                    {item.produtos.map((p: any, index: number) => (
+                      <View key={`${p.produto.nome}-${index}`} style={styles.productItem}>
+                        {p.produto.imageUrl && (
+                          <Image source={{ uri: p.produto.imageUrl }} style={styles.productImage} />
+                        )}
                         <Text style={styles.productText}>
-                          {product.name} - R${product.price}
+                          {p.produto.nome} - {p.produto.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} x {p.quantidade} = {(p.produto.preco * p.quantidade).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                         </Text>
                       </View>
                     ))}
@@ -62,11 +89,11 @@ const OrdersScreen = () => {
               </View>
             );
           }}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.id?.toString() || Math.random().toString()}
         />
       )}
-      <Footer/>
-    </SafeAreaView >
+      <Footer />
+    </SafeAreaView>
   );
 };
 

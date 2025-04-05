@@ -1,57 +1,128 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View, Image, TouchableOpacity, Modal, FlatList, TextInput } from 'react-native';
 import { styles } from './style';
 import Footer from '../../components/footer';
+import axios from 'axios';
+import { getToken } from '@/app/utils/secureStore';
+import { jwtDecode } from 'jwt-decode';
 
-export default function ProductScreen({  }: { navigation: any }) {
-  const products = [
-    { id: 1, name: 'Asus ROG Phone 9 Pro', 
-      description: 'O smartphone Asus ROG Phone 9 Pro é a versão mais poderosa da nova geração do smartphone gamer da empresa taiwanesa. O aparelho traz recursos diferenciados para quem usa o celular prioritariamente para jogos, incluindo acessórios de refrigeração.', 
-      price: 6920, image: require('../../assets/images/rogphone9pro.jpg') },
-    { id: 2, name: 'Samsung Galaxy S24 Ultra', 
-      description: 'O smartphone Galaxy S24 Ultra é celular mais poderoso da empresa koreana. O aparelho vem com o hardware mais avançado entre os celulares da Samsung e recheado de muita tecnologia otimizada por Inteligência Artificial.', 
-      price: 5310, image: require('../../assets/images/galaxyS24Ultra.png') },
-    { id: 3, name: 'REDMAGIC 10 Pro', 
-      description: 'O smartphone gamer RedMagic 10 Pro da empresa chinesa Nubia possui a maior batteria do mercado e uma ventoinha imbutida, como os gatilhos ultrassônicos nas laterais e o slide para ativar o "modo jogo" esse é o melhor celular para jogos da atualidade', 
-      price: 4900, image: require('../../assets/images/redMagic10pro.png') },
-    { id: 4, name: 'Huawei Mate XT Ultimate', 
-      description: 'O Huawei Mate XT Ultimate é um dos primeiros celulares dobráveis "triplos" do mundo,o celular da empresa chinesa Surpreendente com sua tela Touchscreen de 10.2 polegadas, que coloca esse Huawei no topo de sua categoria. Além disso a resolução é das mais altas atualmente em circulação: 3184x2232 ', 
-      price: 21000, image: require('../../assets/images/huaweixt.png') },
-  ];
+const BASE_URL = 'http://localhost:5000/api';
 
-  const cartIcon = require('../../assets/images/cart.png');
-  const logo = require('../../assets/images/mobiexpressLogo.png'); // Add the logo image
+const localImages: { [key: string]: any } = {
+  "rogphone9pro.jpg": require('@/assets/images/rogphone9pro.jpg'),
+  "galaxyS24Ultra.png": require('@/assets/images/galaxyS24Ultra.png'),
+  "redMagic10pro.png": require('@/assets/images/redMagic10pro.png'),
+  "huaweixt.png": require('@/assets/images/huaweixt.png'),
+};
 
-  const [cart, setCart] = useState<{ id: number; name: string; price: number; image: any}[]>([]);
+export default function ProductScreen() {
+  const [products, setProducts] = useState<any[]>([]);
+  const [cart, setCart] = useState<any[]>([]);
+  const [userId, setUserId] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleAddToCartButton = (product: { id: number; name: string; price: number ; image: any;}) => {
-    setCart(prevCart => [...prevCart, product]);
+  const cartIcon = require('@/assets/images/cart.png');
+  const logo = require('@/assets/images/mobiexpressLogo.png');
+
+  useEffect(() => {
+    fetchUserId();
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      fetchProducts();
+      fetchCart();
+    }
+  }, [userId]);
+
+  const fetchUserId = async () => {
+    try {
+      const token = await getToken();
+      if (token) {
+        const decoded: any = jwtDecode(token);
+        setUserId(decoded.id);
+      }
+    } catch (error) {
+      console.error("Erro ao obter ID do usuário:", error);
+    }
   };
 
-  const handleRemoveItem = (productId: number) => {
-    setCart(cart.filter(item => item.id !== productId));
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/products`);
+      setProducts(res.data);
+    } catch (err) {
+      console.error("Erro ao buscar produtos:", err);
+    }
   };
 
-  const handleFinalizeOrder = () => {
-    alert('Pedido finalizado! Vá até o caixa para concluir a compra.');
-    setCart([]); // Clear the cart after checkout
-    setIsModalVisible(false); // Close the modal
+  const fetchCart = async () => {
+    if (!userId) return;
+    try {
+      const res = await axios.get(`${BASE_URL}/cart/${userId}`);
+      setCart(res.data.produtos.map((item: any) => ({
+        ...item.produto,
+        quantidade: item.quantidade,
+      })));
+    } catch (err: any) {
+      console.warn("Carrinho vazio ou erro:", err?.response?.data?.message);
+    }
   };
 
-  const filteredProducts = products.filter(product => 
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const handleAddToCartButton = async (product: any) => {
+    if (!userId) {
+      alert("Você precisa estar logado para adicionar itens ao carrinho.");
+      return;
+    }
+    try {
+      await axios.post(`${BASE_URL}/cart/add`, {
+        usuario: userId,
+        produto: product._id,
+        quantidade: 1,
+      });
+      fetchCart();
+    } catch (error) {
+      console.error("Erro ao adicionar ao carrinho:", error);
+    }
+  };
+
+  const handleRemoveItem = async (productId: string) => {
+    if (!userId) return;
+    try {
+      await axios.delete(`${BASE_URL}/cart/${userId}/${productId}`, {
+        data: { quantidade: 1 },
+      });
+      fetchCart();
+    } catch (error) {
+      console.error("Erro ao remover do carrinho:", error);
+    }
+  };
+
+  const handleCheckout = async () => {
+    if (!userId) return;
+    try {
+      await axios.post(`${BASE_URL}/orders`, { usuario: userId });
+      alert("Pedido finalizado com sucesso!");
+      setIsModalVisible(false);
+      fetchCart();
+    } catch (err: any) {
+      console.error("Erro ao finalizar pedido:", err);
+      alert("Erro ao finalizar pedido. Tente novamente.");
+    }
+  };
+
+  const filteredProducts = products.filter(product =>
+    product.nome.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
-      {/* Add the logo and blue background */}
       <View style={{ backgroundColor: '#034d8f', paddingHorizontal: 20, paddingVertical: 10, alignItems: 'center' }}>
-  <Image source={logo} style={{ width: 100, height: 50, resizeMode: 'contain' }} />
-</View>
+        <Image source={logo} style={{ width: 100, height: 50, resizeMode: 'contain' }} />
+      </View>
 
-      <TextInput 
+      <TextInput
         style={styles.searchBar}
         placeholder="Buscar produto..."
         value={searchQuery}
@@ -61,16 +132,14 @@ export default function ProductScreen({  }: { navigation: any }) {
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <View style={styles.pContainer}>
           {filteredProducts.map((product) => (
-            <View key={product.id} style={styles.productContainer}>
-              <Image source={product.image} style={styles.productImage} />
-              <Text style={styles.h1}>{product.name}</Text>
-              <Text style={styles.h2}>{product.description}</Text>
-              <Text style={styles.price}>Preço: R${product.price}</Text>
-
-              <TouchableOpacity 
-                onPress={() => handleAddToCartButton(product)} 
-                style={styles.button}
-              >
+            <View key={product._id} style={styles.productContainer}>
+              {product.imageName && localImages[product.imageName] && (
+                <Image source={localImages[product.imageName]} style={styles.productImage} />
+              )}
+              <Text style={styles.h1}>{product.nome}</Text>
+              <Text style={styles.h2}>{product.descricao}</Text>
+              <Text style={styles.price}>Preço: R${product.preco}</Text>
+              <TouchableOpacity onPress={() => handleAddToCartButton(product)} style={styles.button}>
                 <Text style={styles.buttonText}>Adicionar ao carrinho</Text>
               </TouchableOpacity>
             </View>
@@ -94,26 +163,25 @@ export default function ProductScreen({  }: { navigation: any }) {
             ) : (
               <FlatList
                 data={cart}
+                keyExtractor={(item, index) => `${item._id}-${index}`}
                 renderItem={({ item }) => (
                   <View style={styles.cartItem}>
-                     <Image source={item.image} style={styles.cartItemImage}/>
-                    <Text>{item.name} </Text>
-                    <Text>R${item.price}</Text>
+                    {item.imageName && localImages[item.imageName] && (
+                      <Image source={localImages[item.imageName]} style={styles.cartItemImage} />
+                    )}
+                    <Text>{item.nome}</Text>
+                    <Text>R${item.preco}</Text>
                     <TouchableOpacity
                       style={styles.removeButton}
-                      onPress={() => handleRemoveItem(item.id)}
+                      onPress={() => handleRemoveItem(item._id)}
                     >
                       <Text style={styles.buttonText}>Remover</Text>
                     </TouchableOpacity>
                   </View>
                 )}
-                keyExtractor={(item) => item.id.toString()}
               />
             )}
-            <TouchableOpacity
-              style={styles.finalizeButton}
-              onPress={handleFinalizeOrder}
-            >
+            <TouchableOpacity style={styles.checkoutButton} onPress={handleCheckout}>
               <Text style={styles.buttonText}>Finalizar Pedido</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.closeButton} onPress={() => setIsModalVisible(false)}>
@@ -123,7 +191,7 @@ export default function ProductScreen({  }: { navigation: any }) {
         </View>
       </Modal>
 
-      <Footer/>
+      <Footer />
     </View>
   );
 }

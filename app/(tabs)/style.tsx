@@ -160,6 +160,7 @@ export const styles = StyleSheet.create({
     color: '#4162B7',
     marginLeft: 5,
   },
+  //products screen
   productImage: {
     width: 150,
     height: 150,
@@ -223,7 +224,7 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 5,
   },
-  //pruducts screen
+ 
   searchBar: {
     height: 40,
     borderColor: '#ccc',
@@ -291,6 +292,12 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   finalizeButton: {
+    backgroundColor: '#DC3545',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  checkoutButton: {
     backgroundColor: '#4162B7',
     padding: 10,
     borderRadius: 5,
