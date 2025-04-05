@@ -1,4 +1,5 @@
-import { ScrollView, Text, View, Image, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { Image } from 'expo-image';
 import React, { useState } from 'react';
 import { styles } from './style';
 import { useRouter } from 'expo-router';
@@ -98,7 +99,7 @@ export default function RegisterScreen() {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <Image source={require('../../assets/login.gif')} style={styles.logo} />
+       <Image source={require('../../assets/login.gif')} style={styles.logo}contentFit="contain" />
         <Text style={styles.h1}>Criar conta</Text>
         <Text style={styles.h2}>Preencha os dados abaixo para criar uma conta.</Text>
         {/* Nome field */}

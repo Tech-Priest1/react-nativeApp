@@ -1,5 +1,6 @@
-import { ScrollView, Text, View, Image, TouchableOpacity, TextInput, Modal, Alert } from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity, TextInput, Modal, Alert } from 'react-native';
 import React, { useState } from 'react';
+import { Image } from 'expo-image';
 import { styles } from './style';
 import {  useRouter } from 'expo-router';
 import { authService } from '@/services/api';
@@ -62,7 +63,7 @@ const handleSendRecoveryEmail = async () => {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <Image source={require('../../assets/login.gif')} style={styles.logo} />
+      <Image source={require('../../assets/login.gif')} style={styles.logo}contentFit="contain" />
         <Text style={styles.h1}>Faça Login</Text>
         <Text style={styles.h2}>Bem-vindo(a)! Digite seus dados abaixo.</Text>
         <View style={styles.inputArea}>
