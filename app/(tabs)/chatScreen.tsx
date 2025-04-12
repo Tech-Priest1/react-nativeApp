@@ -4,7 +4,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './style';
 import Footer from '../../components/footer';
-import { API_BASE_URL } from '@/config/constants'; 
+
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL 
 
 
 export default function ChatScreen() {
