@@ -5,6 +5,7 @@ import { styles } from './style';
 import {  useRouter } from 'expo-router';
 import { authService } from '@/services/api';// Importando o serviço de autenticação
 import { saveToken } from '../utils/secureStore'; // Importando a função de salvar token
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function LoginScreen() {
@@ -34,6 +35,7 @@ export default function LoginScreen() {
     console.log('Login success, token:', response.token);
     // Salva o token de forma segura
     await saveToken(response.token);
+    await AsyncStorage.setItem('userId', response.userId);
     router.push('/productsScreen');
   } catch (error) {
     console.log('Login error:', error);

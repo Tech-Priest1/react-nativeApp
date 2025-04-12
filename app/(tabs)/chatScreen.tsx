@@ -18,7 +18,9 @@ export default function ChatScreen() {
   // Carrega mensagens salvas ao abrir a tela
   useEffect(() => {
     const loadMessages = async () => {
-      const saved = await AsyncStorage.getItem('chatMessages');
+      const userId = await AsyncStorage.getItem('userId');
+      if (!userId) return;
+      const saved = await AsyncStorage.getItem(`chatMessages_${userId}`);  
       if (saved) setMessages(JSON.parse(saved));
     };
     loadMessages();
@@ -26,7 +28,13 @@ export default function ChatScreen() {
 
   // Salva as mensagens toda vez que forem alteradas
   useEffect(() => {
-    AsyncStorage.setItem('chatMessages', JSON.stringify(messages));
+    const saveMessages = async () => {
+      const userId = await AsyncStorage.getItem('userId');
+      if (userId) {
+        AsyncStorage.setItem(`chatMessages_${userId}`, JSON.stringify(messages));
+      }
+    };
+    saveMessages();
   }, [messages]);
 
   const sendMessage = async () => {

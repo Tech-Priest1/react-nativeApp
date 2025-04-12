@@ -204,9 +204,9 @@ export const styles = StyleSheet.create({
   paddingHorizontal: 5, 
   },
   productContainer: {
-    width: '48%', 
+  width: '50%', 
   marginBottom: 20,
-  padding: 10,
+  padding: '5%',
   borderBottomWidth: 1,
   borderBottomColor: '#EEE',
   },
@@ -270,7 +270,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    width: '80%',
+    width: '100%',
     backgroundColor: '#fff',
     padding: 20,
     borderRadius: 10,
@@ -279,7 +279,7 @@ export const styles = StyleSheet.create({
   cartItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     width: '100%',
@@ -292,7 +292,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   finalizeButton: {
-    backgroundColor: '#DC3545',
+    backgroundColor: '#4162B7',
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
@@ -446,14 +446,14 @@ logoutText: {
   },
   userBubble: {
     alignSelf: 'flex-end',
-    backgroundColor: '#d1e7dd',
+    backgroundColor: '#007bff',
     marginVertical: 4,
     padding: 10,
     borderRadius: 10,
   },
   botBubble: {
     alignSelf: 'flex-start',
-    backgroundColor: '#f8d7da',
+    backgroundColor: '#D1FFBD',
     marginVertical: 4,
     padding: 10,
     borderRadius: 10,
