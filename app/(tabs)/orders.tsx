@@ -6,7 +6,7 @@ import { styles } from './style';
 import { getToken } from '@/app/utils/secureStore';
 import { jwtDecode } from 'jwt-decode';
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 const OrdersScreen = () => {
   const [orders, setOrders] = useState<any[]>([]);

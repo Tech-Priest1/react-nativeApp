@@ -6,7 +6,7 @@ import axios from 'axios';
 import { getToken } from '@/app/utils/secureStore';
 import { jwtDecode } from 'jwt-decode';
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL;
 
 const localImages: { [key: string]: any } = {
   "rogphone9pro.jpg": require('@/assets/images/rogphone9pro.jpg'),
