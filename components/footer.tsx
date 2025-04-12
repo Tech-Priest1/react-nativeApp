@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
 const Footer = () => {
-  const router = useRouter(); // Use the router inside the component
+  const router = useRouter(); 
 
   return (
     <View style={styles.footerContainer}>
@@ -30,7 +30,16 @@ const Footer = () => {
         <Image source={require('../assets/images/profile.png')} style={styles.icon} />
         <Text style={styles.buttonText}>Profile</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+  style={styles.footerButton}
+  onPress={() => router.push('/(tabs)/chatScreen')}
+>
+  <Image source={require('../assets/images/chat.png')} style={styles.icon} />
+  <Text style={styles.buttonText}>Chat</Text>
+</TouchableOpacity>
+
     </View>
+    
   );
 };
 

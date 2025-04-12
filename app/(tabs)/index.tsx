@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Image } from 'expo-image';
 import { styles } from './style';
 import {  useRouter } from 'expo-router';
-import { authService } from '@/services/api';
+import { authService } from '@/services/api';// Importando o serviço de autenticação
 import { saveToken } from '../utils/secureStore'; // Importando a função de salvar token
 
 
@@ -25,6 +25,8 @@ export default function LoginScreen() {
   }
   setLoading(true);
   try {
+    console.log('Attempting login with:', { email, password });
+    console.log('authService:', authService); 
     const response = await authService.login({ 
       email, 
       senha: password 
@@ -48,7 +50,7 @@ const handleSendRecoveryEmail = async () => {
       return;
     }
     try {
-      // Implement your recovery logic here
+      //logica de envio de email de recuperação não necessario
       console.log('Enviando email de recuperação para:', recoveryEmail);
       Alert.alert('Sucesso', 'Email de recuperação enviado com sucesso');
       setModalVisible(false);

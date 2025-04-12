@@ -435,5 +435,55 @@ logoutText: {
   fontSize: 16,
   fontWeight: 'bold',
 },
+//chat screen
+  containerChat: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  chatArea: {
+    flex: 1,
+    padding: 10,
+  },
+  userBubble: {
+    alignSelf: 'flex-end',
+    backgroundColor: '#d1e7dd',
+    marginVertical: 4,
+    padding: 10,
+    borderRadius: 10,
+  },
+  botBubble: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#f8d7da',
+    marginVertical: 4,
+    padding: 10,
+    borderRadius: 10,
+  },
+  msgText: {
+    fontSize: 16,
+  },
+  inputAreaChat: {
+    flexDirection: 'row',
+    padding: 10,
+    borderTopWidth: 1,
+    borderColor: '#ccc',
+  },
+  input: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',
+    padding: 10,
+    borderRadius: 20,
+  },
+  sendButton: {
+    marginLeft: 8,
+    justifyContent: 'center',
+    backgroundColor: '#007bff',
+    paddingHorizontal: 16,
+    borderRadius: 20,
+  },
+  sendButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });
+
 export default styles;

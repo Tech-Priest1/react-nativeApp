@@ -2,7 +2,8 @@
 import { getToken } from '@/app/utils/secureStore';
 
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL || "http://localhost:5000/api";
+
 
 export const api = async (endpoint: string, method: string = 'GET', data: any = null, token: string | null = null) => {
 
