@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity, Text, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import styles from './style';
-import Footer from '../../components/footer';
+import styles from '../style';
+import Footer from '../../../components/footer';
 
 const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL 
 

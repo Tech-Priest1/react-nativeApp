@@ -32,7 +32,7 @@ const Footer = () => {
       </TouchableOpacity>
       <TouchableOpacity
   style={styles.footerButton}
-  onPress={() => router.push('/(tabs)/chatScreen')}
+  onPress={() => router.push('/(tabs)/chatListScreen')}
 >
   <Image source={require('../assets/images/chat.png')} style={styles.icon} />
   <Text style={styles.buttonText}>Chat</Text>

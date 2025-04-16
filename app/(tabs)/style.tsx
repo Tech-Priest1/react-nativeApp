@@ -484,6 +484,29 @@ logoutText: {
     color: 'white',
     fontWeight: 'bold',
   },
+
+  //chatlistScreen
+  chatListContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: 20,
+  },
+  headerChatlist: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    paddingHorizontal: 20,
+    marginBottom: 10,
+  },
+  contactItem: {
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  contactName: {
+    fontSize: 18,
+  },
+  
 });
 
 export default styles;
